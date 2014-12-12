@@ -5,15 +5,11 @@
 # Vulns:
 #   C99 Shell
 #   Sudo allows all users for no password
+#   Maximum password age set in /etc/login.defs
 
 import os.path
 import time
-
-def sudoers(report):
-    if os.path.isfile("/etc/sudoers.d/all") == False:
-        report.write("\n<li>Sudoers file secure\n")
-        print("Sudoers file secure")
-    return
+import re
 
 def c99(report):
     if os.path.isfile("/var/www/c99.php") == False:
@@ -21,6 +17,19 @@ def c99(report):
         print("C99 Shell Removed!")
     return
 
+def sudoers(report):
+    if os.path.isfile("/etc/sudoers.d/all") == False:
+        report.write("\n<li>Sudoers file secure\n")
+        print("Sudoers file secure")
+    return
+
+def max_pw_age(report):
+    if "PASS_MAX_DAYS" + '\t' + "99999" not in open("/etc/login.defs").read():
+        report.write("\n<li>Maximum password age set\n")
+        print("Maximum password age set.")
+    return
+
+# Begin actual program
 while True:
     with open("/home/connor/scorereport.html", "w") as report:
         report.write("<!DOCTYPE html>\n")
@@ -32,6 +41,7 @@ while True:
         report.write("<center><b>Score Report</b></center>\n")
         report.write("<ol>\n")
         c99(report)
+        max_pw_age(report)
         report.write("</ol>\n")
         report.write("</body>\n")
         report.write("</html>\n")
