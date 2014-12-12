@@ -29,6 +29,14 @@ def max_pw_age(report):
         print("Maximum password age set.")
     return
 
+def root_pw(report):
+    # Using the probability that any password changed will have a different
+    # hash. Almost impossible chance it will be the same.
+    if "root:$6$apbHs1Ep$s3YFIJQkZ6YwomVzxpu" in open("/etc/shadow").read():
+        report.write("\n<li>Insecure root password changed\n")
+        print("Insecure root password changed")
+    return
+
 # Begin actual program
 while True:
     with open("/home/connor/scorereport.html", "w") as report:
@@ -41,7 +49,9 @@ while True:
         report.write("<center><b>Score Report</b></center>\n")
         report.write("<ol>\n")
         c99(report)
+        sudoers(report)
         max_pw_age(report)
+        root_pw(report)
         report.write("</ol>\n")
         report.write("</body>\n")
         report.write("</html>\n")
