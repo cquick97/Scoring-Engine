@@ -10,6 +10,7 @@
 import os.path
 import time
 import re
+import pam
 
 def c99(report):
     if os.path.isfile("/var/www/c99.php") == False:
@@ -32,9 +33,19 @@ def max_pw_age(report):
 def root_pw(report):
     # Using the probability that any password changed will have a different
     # hash. Almost impossible chance it will be the same.
-    if "root:$6$apbHs1Ep$s3YFIJQkZ6YwomVzxpu" in open("/etc/shadow").read():
+    p = pam.pam()
+    if p.authenticate('root', 'root', 'sshd') == False:
         report.write("\n<li>Insecure root password changed\n")
         print("Insecure root password changed")
+    return
+
+def hidden_user(report):
+    if (
+        "toor:$1$Mf.LwAFR$vkGdl1CjOv3ioN" in open("/etc/shadow").read() and
+        "toor:x:0:0:root:/root:/bin/bash" in open("/etc/passwd").read()
+        ):
+        report.write("\n<li>Hidden user has been removed\n")
+        print("Hidden user has been removed")
     return
 
 # Begin actual program
@@ -52,6 +63,7 @@ while True:
         sudoers(report)
         max_pw_age(report)
         root_pw(report)
+        hidden_user(report)
         report.write("</ol>\n")
         report.write("</body>\n")
         report.write("</html>\n")
