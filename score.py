@@ -6,6 +6,9 @@
 #   C99 Shell
 #   Sudo allows all users for no password
 #   Maximum password age set in /etc/login.defs
+#   Passwords
+#   Groups
+#   Hidden user
 
 import os.path
 import time
@@ -30,23 +33,35 @@ def max_pw_age(report):
         print("Maximum password age set.")
     return
 
-def root_pw(report):
-    # Using the probability that any password changed will have a different
-    # hash. Almost impossible chance it will be the same.
+def password(report, user, password):
     p = pam.pam()
-    if p.authenticate('root', 'root', 'sshd') == False:
-        report.write("\n<li>Insecure root password changed\n")
-        print("Insecure root password changed")
+    if p.authenticate(user, password, 'sshd') == False:
+        report.write("\n<li>Insecure password changed for %s\n" % user)
+        print("Insecure password changed for %s" % user)
     return
 
 def hidden_user(report):
     if (
-        "toor:$1$Mf.LwAFR$vkGdl1CjOv3ioN" in open("/etc/shadow").read() and
-        "toor:x:0:0:root:/root:/bin/bash" in open("/etc/passwd").read()
+        "toor" not in open("/etc/shadow").read() and
+        "toor" not in open("/etc/passwd").read()
         ):
         report.write("\n<li>Hidden user has been removed\n")
         print("Hidden user has been removed")
     return
+
+def ssh_root_login(report):
+    if ("PermitRootLogin yes" in open("/etc/ssh/sshd_config").read()):
+        report.write("\n<li>Root SSH login disabled\n")
+        print("Root SSH login disabled")
+    return
+
+def groups(report, user, group):
+    # if user not in group
+    with open("/etc/group") as file:
+        for line in file:
+            if re.search('^' + group, line) and user not in line:
+                report.write("\n<li>%s has been removed from group %s\n" % (user,group))
+                print("%s has been removed from group %s" % (user,group))
 
 # Begin actual program
 while True:
@@ -59,11 +74,13 @@ while True:
         report.write("<body>\n")
         report.write("<center><b>Score Report</b></center>\n")
         report.write("<ol>\n")
-        c99(report)
-        sudoers(report)
-        max_pw_age(report)
-        root_pw(report)
-        hidden_user(report)
+        #c99(report)
+        #sudoers(report)
+        #max_pw_age(report)
+        #hidden_user(report)
+        #password(report, "root", "root")
+        #password(report, "jack", "jack")
+        #groups(report, "leon", "adm")
         report.write("</ol>\n")
         report.write("</body>\n")
         report.write("</html>\n")

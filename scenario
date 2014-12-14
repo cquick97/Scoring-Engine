@@ -1,0 +1,28 @@
+You have been hired as a security consultant for some company.
+
+Your job is to secure this Ubuntu 12.04 LTS computer.
+
+Company policy specifies that all user accounts must be password protected.
+The company strictly forbids any media files and "hacking tools" on any company
+computer.
+
+This computer is to be used as an SSH access point into our network, so any
+authorized user should be able to log in remotely. We would also like to host
+our website on this computer.
+
+Required Services:
+    sshd
+    apache2
+
+Authorized Administrators:
+    jack
+    NOTE: "connor" should remain untouched!!!
+
+Authorized Users:
+    asd
+    asdf
+    asdf
+    sadf
+    sadf
+
+
