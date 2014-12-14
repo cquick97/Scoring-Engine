@@ -62,6 +62,14 @@ def groups(report, user, group):
             if re.search('^' + group, line) and user not in line:
                 report.write("\n<li>%s has been removed from group %s\n" % (user,group))
                 print("%s has been removed from group %s" % (user,group))
+    return
+
+def installed(report, path):
+    if os.path.isfile(path) == False:
+        name = path.split('/')
+        report.write("\n<li>%s has been removed\n" % name[-1])
+        print("%s has been removed" % name[-1])
+    return
 
 # Begin actual program
 while True:
@@ -81,6 +89,7 @@ while True:
         #password(report, "root", "root")
         #password(report, "jack", "jack")
         #groups(report, "leon", "adm")
+        #installed(report, "/usr/local/bin/hydra")
         report.write("</ol>\n")
         report.write("</body>\n")
         report.write("</html>\n")
