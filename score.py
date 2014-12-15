@@ -15,10 +15,10 @@ import time
 import re
 import pam
 
-def c99(report):
-    if os.path.isfile("/var/www/c99.php") == False:
-        report.write("\n<li>C99 Shell removed!\n")
-        print("C99 Shell Removed!")
+def backdoor(report, path):
+    if os.path.isfile(path) == False:
+        report.write("\n<li>Backdoor from '%s' removed!\n" % path)
+        print("Backdoor from '%s' removed!" % path)
     return
 
 def sudoers(report):
@@ -40,13 +40,13 @@ def password(report, user, password):
         print("Insecure password changed for %s" % user)
     return
 
-def hidden_user(report):
+def hidden_user(report, name):
     if (
-        "toor" not in open("/etc/shadow").read() and
-        "toor" not in open("/etc/passwd").read()
+        name not in open("/etc/shadow").read() and
+        name not in open("/etc/passwd").read()
         ):
-        report.write("\n<li>Hidden user has been removed\n")
-        print("Hidden user has been removed")
+        report.write("\n<li>Hidden user %s has been removed\n" % name)
+        print("Hidden user %s has been removed" % name)
     return
 
 def ssh_root_login(report):
@@ -82,10 +82,10 @@ while True:
         report.write("<body>\n")
         report.write("<center><b>Score Report</b></center>\n")
         report.write("<ol>\n")
-        #c99(report)
+        #backdoor(report, "/var/www/c99.php")
         #sudoers(report)
         #max_pw_age(report)
-        #hidden_user(report)
+        #hidden_user(report, "toor")
         #password(report, "root", "root")
         #password(report, "jack", "jack")
         #groups(report, "leon", "adm")
