@@ -13,7 +13,8 @@
 import os.path
 import time
 import re
-import pam
+from simplepam import authenticate # https://pypi.python.org/pypi/simplepam/0.1.5
+import psutil # https://github.com/giampaolo/psutil
 
 def backdoor(report, path):
     if os.path.isfile(path) == False:
@@ -34,8 +35,8 @@ def max_pw_age(report):
     return
 
 def password(report, user, password):
-    p = pam.pam()
-    if p.authenticate(user, password, 'sshd') == False:
+    print(authenticate(user, password, service='sshd'))
+    if authenticate(user, password, service='sshd') == False:
         report.write("\n<li>Insecure password changed for %s\n" % user)
         print("Insecure password changed for %s" % user)
     return
@@ -71,6 +72,22 @@ def installed(report, path):
         print("%s has been removed" % name[-1])
     return
 
+def services(report, service, status):
+    # Used to check services enabled or disabled
+    service_list = list()
+    for p in psutil.get_process_list():
+        service_list += p
+
+    if status == 0:
+        if service not in service_list:
+            report.write("\n<li>%s has been disabled\n" % service)
+            print("%s has been disabled" % service)
+    elif status == 1:
+        if service in service_list:
+            report.write("\n<li>%s has been enabled\n" % service)
+            print("%s has been enabled" % service)
+
+
 # Begin actual program
 while True:
     with open("/home/connor/scorereport.html", "w") as report:
@@ -82,6 +99,7 @@ while True:
         report.write("<body>\n")
         report.write("<center><b>Score Report</b></center>\n")
         report.write("<ol>\n")
+
         #backdoor(report, "/var/www/c99.php")
         #sudoers(report)
         #max_pw_age(report)
@@ -90,6 +108,8 @@ while True:
         #password(report, "jack", "jack")
         #groups(report, "leon", "adm")
         #installed(report, "/usr/local/bin/hydra")
+        services(report, "sshd", 0) # 0 = disable, 1 = enable
+
         report.write("</ol>\n")
         report.write("</body>\n")
         report.write("</html>\n")
