@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 # This is a scoring engine based on CyberPatriot.
 
 # Vulns:
@@ -10,7 +9,8 @@
 #   Groups
 #   Hidden user
 
-import os.path
+#import os.path
+import os
 import time
 import re
 from simplepam import authenticate # https://pypi.python.org/pypi/simplepam/0.1.5
@@ -86,7 +86,11 @@ def services(report, service, status):
     else:
         report.write("\n<li>%s has been disabled\n" % service)
         print("%s has been disabled" % service)
+    return
 
+def media(report, directory, extension):
+    if all(extension not in s for s in os.listdir(directory)):
+        print("Forbidden files removed")
 
 # Begin actual program
 while True:
@@ -109,6 +113,7 @@ while True:
         #groups(report, "leon", "adm")
         #installed(report, "/usr/local/bin/hydra")
         #services(report, "sshd", 0) # 0 = disable, 1 = enable
+        media(report, "/home/connor/testfiles", ".mp3")
 
         report.write("</ol>\n")
         report.write("</body>\n")
