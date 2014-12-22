@@ -74,18 +74,18 @@ def installed(report, path):
 
 def services(report, service, status):
     # Used to check services enabled or disabled
+    #service_list = psutil.get_process_list()
     service_list = list()
-    for p in psutil.get_process_list():
-        service_list += p
+    for i in psutil.get_process_list():
+        service_list.append(str(i))
 
-    if status == 0:
-        if service not in service_list:
-            report.write("\n<li>%s has been disabled\n" % service)
-            print("%s has been disabled" % service)
-    elif status == 1:
-        if service in service_list:
+    if any(service in s for s in service_list):
+        if status == 1:
             report.write("\n<li>%s has been enabled\n" % service)
             print("%s has been enabled" % service)
+    else:
+        report.write("\n<li>%s has been disabled\n" % service)
+        print("%s has been disabled" % service)
 
 
 # Begin actual program
@@ -108,7 +108,7 @@ while True:
         #password(report, "jack", "jack")
         #groups(report, "leon", "adm")
         #installed(report, "/usr/local/bin/hydra")
-        services(report, "sshd", 0) # 0 = disable, 1 = enable
+        #services(report, "sshd", 0) # 0 = disable, 1 = enable
 
         report.write("</ol>\n")
         report.write("</body>\n")
