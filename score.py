@@ -1,13 +1,23 @@
-#!/usr/bin/env python
-# This is a scoring engine based on CyberPatriot.
+#!/usr/bin/env python3
 
-# Vulns:
-#   C99 Shell
-#   Sudo allows all users for no password
-#   Maximum password age set in /etc/login.defs
-#   Passwords
-#   Groups
-#   Hidden user
+# This is a scoring engine based on CyberPatriot.
+# Will loop every 10 seconds to check functions that are specified.
+# If it is fixed, it will edit an HTML document to show the scores.
+# Only real limitation to this is that the python file is plaintext and could
+# easily be found and read by a competitor to get all the answers. Need to
+# check into a way to stop that.
+
+# Completed
+# Backdoors
+# Sudoers file
+# Password Age
+# User password
+# Hidden users
+# SSH root login
+# User not in 'group'
+# Installed software (ex: hydra)
+# Running service (open port)
+# Hidden media files
 
 #import os.path
 import os
@@ -22,16 +32,16 @@ def backdoor(report, path):
         print("Backdoor from '%s' removed!" % path)
     return
 
-def sudoers(report):
-    if os.path.isfile("/etc/sudoers.d/all") == False:
+def sudoers(report, path):
+    if os.path.isfile("/etc/sudoers.d/" + path) == False:
         report.write("\n<li>Sudoers file secure\n")
         print("Sudoers file secure")
     return
 
-def max_pw_age(report):
-    if "PASS_MAX_DAYS" + '\t' + "99999" not in open("/etc/login.defs").read():
-        report.write("\n<li>Maximum password age set\n")
-        print("Maximum password age set.")
+def pw_age(report, choice, not_val):
+    if "PASS_" + choice + "_DAYS" + '\t' + not_val not in open("/etc/login.defs").read():
+        report.write("\n<li>%s password age set\n" % choice)
+        print("%s password age set." % choice)
     return
 
 def password(report, user, password):
@@ -91,6 +101,7 @@ def services(report, service, status):
 def media(report, directory, extension):
     if all(extension not in s for s in os.listdir(directory)):
         print("Forbidden files removed")
+    return
 
 # Begin actual program
 while True:
@@ -105,20 +116,17 @@ while True:
         report.write("<ol>\n")
 
         #backdoor(report, "/var/www/c99.php")
-        #sudoers(report)
-        #max_pw_age(report)
+        #sudoers(report, "/etc/sudoers.d/all")
+        #pw_age(report, "MAX", "99999")  # MAX/MIN, value it shouldn't be
         #hidden_user(report, "toor")
         #password(report, "root", "root")
         #password(report, "jack", "jack")
         #groups(report, "leon", "adm")
         #installed(report, "/usr/local/bin/hydra")
         #services(report, "sshd", 0) # 0 = disable, 1 = enable
-        media(report, "/home/connor/testfiles", ".mp3")
+        #media(report, "/home/connor/testfiles", ".mp3")
 
         report.write("</ol>\n")
         report.write("</body>\n")
         report.write("</html>\n")
     time.sleep(10)
-
-
-
