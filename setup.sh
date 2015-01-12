@@ -16,6 +16,7 @@ echo "toor::16426:0:99999:7:::" > /etc/shadow
 
 # Insecure root pw
 echo "root:root" | chpasswd
+echo "jack:jack" | chpasswd
 
 # Users
 # Authorized admin
@@ -48,3 +49,5 @@ python setup.py install -y
 cd ..
 rm -rf psutil
 
+# Services
+apt-get install vsftpd

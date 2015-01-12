@@ -1,6 +1,12 @@
-You have been hired as a security consultant for some company.
+DON'T TOUCH ANYTHING INVOLVING SCORINGENGINE
+DON'T TOUCH ANYTHING INVOLVING SCORINGENGINE
+DON'T TOUCH ANYTHING INVOLVING SCORINGENGINE
+DON'T TOUCH ANYTHING INVOLVING SCORINGENGINE
+DON'T TOUCH ANYTHING INVOLVING SCORINGENGINE
 
-Your job is to secure this Ubuntu 12.04 LTS computer.
+You have been hired as a security consultant for CompanyXYZ.
+
+Your job is to secure this Ubuntu 14.04 computer.
 
 Company policy specifies that all user accounts must be password protected.
 The company strictly forbids any media files and "hacking tools" on any company
@@ -8,21 +14,30 @@ computer.
 
 This computer is to be used as an SSH access point into our network, so any
 authorized user should be able to log in remotely. We would also like to host
-our website on this computer.
+our website on this computer, although it is unfinished at the moment.
 
 Required Services:
     sshd
     apache2
 
+root pass = root
 Authorized Administrators:
+    leon      pass = defsecisfuntoo
     jack
-    NOTE: "connor" should remain untouched!!!
+    NOTE: "scoringengine" should remain untouched!!!
 
 Authorized Users:
-    asd
-    asdf
-    asdf
-    sadf
-    sadf
+    tyler
+    alex
+    connor
+    andrew
 
+This engine was written in Python, which means that all the code is in plaintext.
+You can find this in /opt/Scoring-Engine, however I would suggest you take your
+time and try to find as many vulnerabilities as you can WITHOUT looking.
 
+You will find your score report on the desktop of "leon" (you). It is an HTML
+document will be updated every ten seconds (you need to refresh the page).
+
+There are 10 vulnerabilities. Note that there are probably more, but not all
+will be scored. Don't think too hard :)
