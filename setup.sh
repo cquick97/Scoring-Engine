@@ -20,7 +20,7 @@ echo "root:root" | chpasswd
 # Users
 # Authorized admin
 useradd -d /home/leon -G adm,sudo -s /bin/bash -m leon
-echo "leon:leon" | chpasswd
+echo "leon:defsecisfuntoo" | chpasswd
 useradd -d /home/jack -G adm,sudo -s /bin/bash -m jack
 echo "jack:jack" | chpasswd
 # Unauthorized admin
@@ -56,4 +56,5 @@ apt-get install vsftpd
 # Set script to run
 echo "SET ROOT CRONTAB!!!"
 echo "@reboot python /opt/Scoring-Engine/score.py"
+mkdir -p /home/leon/Desktop
 cp /opt/Scoring-Engine/scenario /home/leon/Desktop/README

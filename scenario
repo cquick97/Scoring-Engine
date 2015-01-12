@@ -23,7 +23,7 @@ Required Services:
 root pass = root
 Authorized Administrators:
     leon      pass = defsecisfuntoo
-    jack
+    jack      pass = jack
     NOTE: "scoringengine" should remain untouched!!!
 
 Authorized Users:
