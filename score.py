@@ -115,14 +115,14 @@ while True:
         report.write("<center><b>Score Report</b></center>\n")
         report.write("<ol>\n")
 
-        backdoor(report, "/var/www/c99.php")
-        sudoers(report, "/etc/sudoers.d/all")
+        backdoor(report, "/var/www/html/c99.php")
+        sudoers(report, "all")
         pw_age(report, "MAX", "99999")  # MAX/MIN, value it shouldn't be
         hidden_user(report, "toor")
         password(report, "root", "root")
         password(report, "jack", "jack")
         groups(report, "tyler", "adm")
-        installed(report, "/usr/local/bin/hydra")
+        installed(report, "/usr/bin/hydra")
         services(report, "vsftpd", 0) # 0 = disable, 1 = enable
         ssh_root_login(report)
 

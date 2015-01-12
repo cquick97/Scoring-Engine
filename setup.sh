@@ -22,6 +22,7 @@ echo "root:root" | chpasswd
 useradd -d /home/leon -G adm,sudo -s /bin/bash -m leon
 echo "leon:leon" | chpasswd
 useradd -d /home/jack -G adm,sudo -s /bin/bash -m jack
+echo "jack:jack" | chpasswd
 # Unauthorized admin
 useradd -d /home/tyler -G adm,sudo -s /bin/bash -m tyler
 # Authorized user
@@ -53,4 +54,5 @@ rm -rf psutil
 apt-get install vsftpd
 
 # Set script to run
-echo "@reboot root \"python /opt/Scoring-Engine/score.py\"" >> /etc/crontab
+echo "SET ROOT CRONTAB!!!"
+echo "@reboot python /opt/Scoring-Engine/score.py"
