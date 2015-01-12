@@ -125,6 +125,7 @@ while True:
         #installed(report, "/usr/local/bin/hydra")
         #services(report, "sshd", 0) # 0 = disable, 1 = enable
         #media(report, "/home/connor/testfiles", ".mp3")
+        #ssh_root_login(report)
 
         report.write("</ol>\n")
         report.write("</body>\n")
