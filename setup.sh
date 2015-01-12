@@ -16,12 +16,12 @@ echo "toor::16426:0:99999:7:::" > /etc/shadow
 
 # Insecure root pw
 echo "root:root" | chpasswd
-echo "jack:jack" | chpasswd
 
 # Users
 # Authorized admin
 useradd -d /home/leon -G adm,sudo leon
 useradd -d /home/jack -G adm,sudo jack
+echo "jack:jack" | chpasswd
 # Unauthorized admin
 useradd -d /home/tyler -G adm,sudo tyler
 # Authorized user
