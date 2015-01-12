@@ -53,4 +53,4 @@ rm -rf psutil
 apt-get install vsftpd
 
 # Set script to run
-echo "@reboot root \"python /opt/score.py\"" >> /etc/crontab
+echo "@reboot root \"python /opt/Scoring-Engine/score.py\"" >> /etc/crontab

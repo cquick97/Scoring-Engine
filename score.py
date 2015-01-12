@@ -105,7 +105,7 @@ def media(report, directory, extension):
 
 # Begin actual program
 while True:
-    with open("/home/leon/scorereport.html", "w") as report:
+    with open("/home/leon/Desktop/scorereport.html", "w") as report:
         report.write("<!DOCTYPE html>\n")
         report.write("<head>\n")
         report.write("<meta charset=\"UTF-8\">\n")
