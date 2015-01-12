@@ -56,3 +56,4 @@ apt-get install vsftpd
 # Set script to run
 echo "SET ROOT CRONTAB!!!"
 echo "@reboot python /opt/Scoring-Engine/score.py"
+cp /opt/Scoring-Engine/scenario /home/leon/Desktop/README
