@@ -19,15 +19,15 @@ echo "root:root" | chpasswd
 
 # Users
 # Authorized admin
-useradd -d /home/leon -G adm,sudo leon
-useradd -d /home/jack -G adm,sudo jack
+useradd -d /home/leon -G adm,sudo -s /bin/bash -m leon
+useradd -d /home/jack -G adm,sudo -s /bin/bash -m jack
 echo "jack:jack" | chpasswd
 # Unauthorized admin
-useradd -d /home/tyler -G adm,sudo tyler
+useradd -d /home/tyler -G adm,sudo -s /bin/bash -m tyler
 # Authorized user
-useradd -d /home/alex alex
-useradd -d /home/connor connor
-useradd -d /home/andrew andrew
+useradd -d /home/alex -s /bin/bash -m alex
+useradd -d /home/connor -s /bin/bash -m connor
+useradd -d /home/andrew -s /bin/bash -m andrew
 
 # install hydra
 apt-get install -y hydra
