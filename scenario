@@ -22,7 +22,7 @@ Required Services:
 
 root pass = root
 Authorized Administrators:
-    leon      pass = defsecisfuntoo
+    leon      pass = defsecisfuntoo (This is you!)
     jack      pass = jack
     NOTE: "scoringengine" should remain untouched!!!
 
@@ -32,9 +32,8 @@ Authorized Users:
     connor
     andrew
 
-This engine was written in Python, which means that all the code is in plaintext.
-You can find this in /opt/Scoring-Engine, however I would suggest you take your
-time and try to find as many vulnerabilities as you can WITHOUT looking.
+Do not touch, look at, think about touching or looking at, or do anything at
+all to the directory, or any files within the directory /opt/Scoring-Engine.
 
 You will find your score report on the desktop of "leon" (you). It is an HTML
 document will be updated every ten seconds (you need to refresh the page).
