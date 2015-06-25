@@ -30,18 +30,24 @@ def backdoor(report, path):
     if os.path.isfile(path) == False:
         report.write("\n<li>Backdoor from '%s' removed!\n" % path)
         print("Backdoor from '%s' removed!" % path)
+        global found
+        found += 1
     return
 
 def sudoers(report, path):
     if os.path.isfile("/etc/sudoers.d/" + path) == False:
         report.write("\n<li>Sudoers file secure\n")
         print("Sudoers file secure")
+        global found
+        found += 1
     return
 
 def pw_age(report, choice, not_val):
     if "PASS_" + choice + "_DAYS" + '\t' + not_val not in open("/etc/login.defs").read():
         report.write("\n<li>%s password age set\n" % choice)
         print("%s password age set." % choice)
+        global found
+        found += 1
     return
 
 def password(report, user, password):
@@ -49,6 +55,8 @@ def password(report, user, password):
     if authenticate(user, password, service='sshd') == False:
         report.write("\n<li>Insecure password changed for %s\n" % user)
         print("Insecure password changed for %s" % user)
+        global found
+        found += 1
     return
 
 def hidden_user(report, name):
@@ -58,12 +66,16 @@ def hidden_user(report, name):
         ):
         report.write("\n<li>Hidden user %s has been removed\n" % name)
         print("Hidden user %s has been removed" % name)
+        global found
+        found += 1
     return
 
 def ssh_root_login(report):
     if ("PermitRootLogin yes" in open("/etc/ssh/sshd_config").read()):
         report.write("\n<li>Root SSH login disabled\n")
         print("Root SSH login disabled")
+        global found
+        found += 1
     return
 
 def groups(report, user, group):
@@ -73,6 +85,8 @@ def groups(report, user, group):
             if re.search('^' + group, line) and user not in line:
                 report.write("\n<li>%s has been removed from group %s\n" % (user,group))
                 print("%s has been removed from group %s" % (user,group))
+                global found
+                found += 1
     return
 
 def installed(report, path):
@@ -80,31 +94,39 @@ def installed(report, path):
         name = path.split('/')
         report.write("\n<li>%s has been removed\n" % name[-1])
         print("%s has been removed" % name[-1])
+        global found
+        found += 1
     return
 
 def services(report, service, status):
     # Used to check services enabled or disabled
-    #service_list = psutil.get_process_list()
     service_list = list()
-    for i in psutil.get_process_list():
+    for i in psutil.process_iter():
         service_list.append(str(i))
 
     if any(service in s for s in service_list):
         if status == 1:
             report.write("\n<li>%s has been enabled\n" % service)
             print("%s has been enabled" % service)
+            global found
+            found += 1
     else:
         report.write("\n<li>%s has been disabled\n" % service)
         print("%s has been disabled" % service)
+        global found
+        found += 1
     return
 
 def media(report, directory, extension):
     if all(extension not in s for s in os.listdir(directory)):
         print("Forbidden files removed")
+        global found
+        found += 1
     return
 
 # Begin actual program
 while True:
+    found = 0
     with open("/home/leon/Desktop/scorereport.html", "w") as report:
         report.write("<!DOCTYPE html>\n")
         report.write("<head>\n")
@@ -127,6 +149,8 @@ while True:
         ssh_root_login(report)
 
         report.write("</ol>\n")
+        report.write("<br></br>")
+        report.write("<center><b>" + str(found) + " out of 10 vulnerabilities found.</b></center>\n")
         report.write("</body>\n")
         report.write("</html>\n")
     time.sleep(10)
