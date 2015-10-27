@@ -24,10 +24,33 @@ bool isStringInFile(const char *fileName, const char *searchString){
     // Check to see if a string exists in a file
     // For instance: root ssh login string in /etc/ssh/sshd_config
 
+    std::ifstream inFile;
+    std::string line;
+
+    inFile.open(fileName);
+
+    size_t pos;
+    while(inFile.good())
+    {
+        getline(inFile,line);
+        pos=line.find(searchString);
+        if(pos != std::string::npos) // string::npos is returned if string is not found
+        {
+            //std::cout << success << " \"" << searchString << "\" has been found in " << fileName << std::endl;
+            return true;
+        }
+        else{
+            return false;
+        }
+  }
+
 }
 
 bool isPortOpen(const char *portNumber){
     // Check to see if a port is open
+    // Used the following site as a guide. Changed to say if port
+    // is open or not based on connection success or failure.
+    // http://codebase.eu/tutorial/linux-socket-programming-c/
 
     int status;
     struct addrinfo host_info;
@@ -55,11 +78,11 @@ bool isPortOpen(const char *portNumber){
     status = connect(socketfd, host_info_list->ai_addr, host_info_list->ai_addrlen);
 
     if (status == -1){
-        std::cout << success << " Port " << portNumber << " is CLOSED on localhost." << std::endl;
+        //std::cout << success << " Port " << portNumber << " is CLOSED on localhost." << std::endl;
         return false;
     }
     else{
-        std::cout << error << " Port " << portNumber << " is OPEN on localhost." << std::endl;
+        //std::cout << error << " Port " << portNumber << " is OPEN on localhost." << std::endl;
         return true;
     }
 }
@@ -81,13 +104,24 @@ void backdoorPort(const char *fileName, const char *portNumber){
     }
 }
 
+void rootLoginSSH(){
+    // Check to see if SSH root login is disabled
+
+    if( isStringInFile("/etc/ssh/sshd_config", "PermitRootLogin yes" ) == false){
+        std::cout << success << " SSH Root login has been disabled." << std::endl;
+    }
+
+}
+
 
 int main(){
 
     backdoorWeb("/var/www/c99.php");
-    isPortOpen("80");
-    isPortOpen("22");
+    //isPortOpen("80");
+    //isPortOpen("22");
     backdoorPort("/var/www/c99.php", "80");
+    //isStringInFile("/etc/ssh/sshd_config", "PermitRootLogin yes");
+    rootLoginSSH();
 
     return 0;
 }
