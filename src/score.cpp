@@ -5,7 +5,6 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <boost/filesystem.hpp>
-#include <boost/asio.hpp>
 
 #define success "\e[01;32m[+]\e[00m"
 #define error "\e[01;31m[!]\e[00m"
