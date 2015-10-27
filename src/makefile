@@ -1,4 +1,4 @@
-OBJS = backdoor.o check.o score.o
+OBJS = backdoor.o check.o serviceConfig.o score.o
 CC = g++
 DEBUG = -g
 CFLAGS = -Wall -c $(DEBUG)
@@ -13,6 +13,9 @@ backdoor.o: backdoor.cpp backdoor.hpp check.hpp
 
 check.o: check.cpp check.hpp
 	$(CC) $(CFLAGS) check.cpp
+
+serviceConfig.o: serviceConfig.cpp serviceConfig.hpp
+	$(CC) $(CFLAGS) serviceConfig.cpp
 
 score.o: score.cpp backdoor.hpp check.hpp
 	$(CC) $(CFLAGS) score.cpp
