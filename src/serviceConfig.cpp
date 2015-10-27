@@ -14,3 +14,17 @@ void rootLoginSSH(){
         std::cout << success << " SSH Root login has been disabled." << std::endl;
     }
 }
+
+void sudoersFile(const char *fileName){
+
+    if(isFileExist(fileName) == false){
+        std::cout << success << " Insecure sudoers configuration fixed." << std::endl;
+    }
+}
+
+void sudoersEntry(const char *searchString){
+
+    if( isStringInFile("/etc/sudoers", searchString ) == false){
+        std::cout << success << " Insecure sudoers configuration fixed." << std::endl;
+    }
+}

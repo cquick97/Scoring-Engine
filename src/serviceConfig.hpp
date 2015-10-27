@@ -3,4 +3,8 @@
 
 void rootLoginSSH();
 
+void sudoersFile(const char *fileName);
+
+void sudoersEntry(const char *searchString);
+
 #endif

