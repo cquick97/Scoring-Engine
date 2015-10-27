@@ -8,13 +8,13 @@ BOOST = -lboost_system -lboost_filesystem
 output: $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) $(BOOST) -o output
 
-backdoors.o: backdoors.cpp backdoors.h check.h
+backdoors.o: backdoors.cpp backdoors.hpp check.hpp
 	$(CC) $(CFLAGS) backdoors.cpp
 
-check.o: check.cpp check.h
+check.o: check.cpp check.hpp
 	$(CC) $(CFLAGS) check.cpp
 
-score.o: score.cpp backdoors.h check.h
+score.o: score.cpp backdoors.hpp check.hpp
 	$(CC) $(CFLAGS) score.cpp
 
 clean:

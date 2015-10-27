@@ -1,7 +1,7 @@
 // backdoors.cpp contains functions to check for _SIMPLE_ backdoors.
 
 #include <iostream>
-#include "check.h"
+#include "check.hpp"
 
 #define success "\e[01;32m[+]\e[00m"
 #define error "\e[01;31m[!]\e[00m"

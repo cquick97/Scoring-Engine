@@ -1,6 +1,6 @@
 #include <iostream>
-#include "check.h"
-#include "backdoors.h"
+#include "check.hpp"
+#include "backdoors.hpp"
 
 #define success "\e[01;32m[+]\e[00m"
 #define error "\e[01;31m[!]\e[00m"
