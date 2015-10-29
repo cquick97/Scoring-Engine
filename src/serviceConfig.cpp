@@ -2,16 +2,18 @@
 // in certain services, such as SSH, etc.
 
 #include <iostream>
-#include "check.hpp"
+#include "files.hpp"
 
 #define success "\e[01;32m[+]\e[00m"
 #define error "\e[01;31m[!]\e[00m"
 
-void rootLoginSSH(){
-    // Check to see if SSH root login is disabled
+void rootLoginSSH(const char *searchString){
+    // Check to see if insecure configuration options are removed
+    // in /etc/ssh/sshd_config
 
-    if( isStringInFile("/etc/ssh/sshd_config", "PermitRootLogin yes" ) == false){
-        std::cout << success << " SSH Root login has been disabled." << std::endl;
+    if( isStringInFile("/etc/ssh/sshd_config", searchString ) == false){
+        std::cout << success << " \"" << searchString <<
+            "\" has been removed from the SSH configuration." << std::endl;
     }
 }
 

