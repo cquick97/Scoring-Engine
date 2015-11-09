@@ -1,4 +1,4 @@
-OBJS = backdoor.o networking.o files.o serviceConfig.o sudoers.o main.o
+OBJS = backdoor.o networking.o files.o serviceConfig.o sudoers.o users.o main.o
 CC = g++
 DEBUG = -g
 CFLAGS = -Wall -c $(DEBUG)
@@ -22,6 +22,9 @@ serviceConfig.o: serviceConfig.cpp serviceConfig.hpp files.hpp globals.hpp
 
 sudoers.o: sudoers.cpp sudoers.hpp files.hpp globals.hpp
 	$(CC) $(CFLAGS) sudoers.cpp
+
+users.o: users.cpp users.hpp files.hpp globals.hpp
+	$(CC) $(CFLAGS) users.cpp
 
 main.o: main.cpp globals.hpp
 	$(CC) $(CFLAGS) main.cpp

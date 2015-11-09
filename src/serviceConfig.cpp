@@ -13,8 +13,7 @@ void rootLoginSSH(const char *searchString){
     // in /etc/ssh/sshd_config
 
     if( isStringInFile("/etc/ssh/sshd_config", searchString ) == false){
-        std::cout << success << " \"" << searchString <<
-            "\" has been removed from the SSH configuration." << std::endl;
+        std::cout << success << " Root SSH login has been disabled." << std::endl;
             total += 10;
     }
 }
