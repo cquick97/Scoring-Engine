@@ -1,4 +1,4 @@
-OBJS = backdoor.o networking.o files.o serviceConfig.o main.o
+OBJS = backdoor.o networking.o files.o serviceConfig.o sudoers.o main.o
 CC = g++
 DEBUG = -g
 CFLAGS = -Wall -c $(DEBUG)
@@ -8,7 +8,7 @@ BOOST = -lboost_system -lboost_filesystem
 output: $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) $(BOOST) -o output
 
-backdoor.o: backdoor.cpp backdoor.hpp networking.hpp files.hpp
+backdoor.o: backdoor.cpp backdoor.hpp networking.hpp files.hpp globals.hpp
 	$(CC) $(CFLAGS) backdoor.cpp
 
 networking.o: networking.cpp networking.hpp
@@ -17,10 +17,13 @@ networking.o: networking.cpp networking.hpp
 files.o: files.cpp files.hpp
 	$(CC) $(CFLAGS) files.cpp
 
-serviceConfig.o: serviceConfig.cpp serviceConfig.hpp files.hpp
+serviceConfig.o: serviceConfig.cpp serviceConfig.hpp files.hpp globals.hpp
 	$(CC) $(CFLAGS) serviceConfig.cpp
 
-main.o: main.cpp backdoor.hpp
+sudoers.o: sudoers.cpp sudoers.hpp files.hpp globals.hpp
+	$(CC) $(CFLAGS) sudoers.cpp
+
+main.o: main.cpp globals.hpp
 	$(CC) $(CFLAGS) main.cpp
 
 clean:

@@ -39,11 +39,9 @@ bool isPortOpen(const char *portNumber){
     status = connect(socketfd, host_info_list->ai_addr, host_info_list->ai_addrlen);
 
     if (status == -1){
-        //std::cout << success << " Port " << portNumber << " is CLOSED on localhost." << std::endl;
         return false;
     }
     else{
-        //std::cout << error << " Port " << portNumber << " is OPEN on localhost." << std::endl;
         return true;
     }
 }

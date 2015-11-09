@@ -30,7 +30,6 @@ bool isStringInFile(const char *fileName, const char *searchString){
         getline(inFile,line);
         pos=line.find(searchString);
         if(pos != std::string::npos){ // string::npos is returned if string is not found
-            //std::cout << success << " \"" << searchString << "\" has been found in " << fileName << std::endl;
             return true;
         }
         else{
