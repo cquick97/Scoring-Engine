@@ -1,6 +1,7 @@
 This is the C++ source of the scoring engine.
 
 Currently the following are done:
+
     1) Backdoors (checking either open port and file, or just file)
     2) Checking is root SSH login is enabled or not
     3) Checking the configuration of sudo (/etc/sudoers and /etc/sudoers.d/)
