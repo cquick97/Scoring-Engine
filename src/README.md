@@ -1,10 +1,10 @@
 This is the C++ source of the scoring engine.
 
 Currently the following are done:
-    + Backdoors (checking either open port and file, or just file)
-    + Checking is root SSH login is enabled or not
-    + Checking the configuration of sudo (/etc/sudoers and /etc/sudoers.d/)
-    + Checking for rogue users
+    1) Backdoors (checking either open port and file, or just file)
+    2) Checking is root SSH login is enabled or not
+    3) Checking the configuration of sudo (/etc/sudoers and /etc/sudoers.d/)
+    4) Checking for rogue users
 
 This will incorporate a scoring server. There are a couple options here:
 
